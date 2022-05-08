@@ -16,6 +16,12 @@ def writer():
     shutil.rmtree("data/lake/parsed/1990/", ignore_errors=True)
 
 
+@pytest.fixture
+def test_path():
+    my_path = Path("tests/test-data/my-path/ignored-file.txt")
+    yield my_path
+    shutil.rmtree("tests/test-data")
+
 
 @pytest.fixture
 def some_bytes():
@@ -31,6 +37,15 @@ def small_df():
 
 
 class TestWriter:
+
+    def test_mkdir_makes_dir(self, writer, test_path):
+        writer.mkdir(test_path)
+        assert test_path.parent.is_dir()
+
+    def test_mkdir_is_idempotent(self, writer, test_path):
+        writer.mkdir(test_path)
+        writer.mkdir(test_path)
+        assert test_path.parent.is_dir()
 
     def test_raw_path_formatter(self, writer):
         expected_path = Path("data/lake/raw/1990/05/1990-05-04.txt")
