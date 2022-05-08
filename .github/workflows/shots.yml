@@ -19,7 +19,7 @@ jobs:
         cache: "poetry"
     - name: Install dependencies
       run: |
-        poetry install
+        poetry install --no-dev
     - name: Fetch yesterday's data
       run: |
         poetry run python etl.py
