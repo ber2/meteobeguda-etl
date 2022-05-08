@@ -12,7 +12,7 @@ from meteobeguda.parser import (
     parse_timestamps_and_add_date,
     reorder_columns,
     parse_response,
-    only_one_day
+    only_one_day,
 )
 
 

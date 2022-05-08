@@ -36,4 +36,3 @@ class Writer:
         path = self.csv_path()
         self.mkdir(path)
         df.to_csv(path, index=False)
-

@@ -14,8 +14,7 @@ from meteobeguda.writer import Writer
 SQLITE_PATH = Path("data/warehouse/meteobeguda_post_2020.sqlite")
 
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(message)s"
+    level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s"
 )
 
 

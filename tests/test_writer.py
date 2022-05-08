@@ -30,14 +30,15 @@ def some_bytes():
 
 @pytest.fixture
 def small_df():
-    return pd.DataFrame([
-        {"a": 0, "b": "one", "c": pd.Timestamp("1990-05-04 00:00:00")},
-        {"a": 1, "b": "other", "c": pd.Timestamp("1990-05-04 00:15:00")},
-    ])
+    return pd.DataFrame(
+        [
+            {"a": 0, "b": "one", "c": pd.Timestamp("1990-05-04 00:00:00")},
+            {"a": 1, "b": "other", "c": pd.Timestamp("1990-05-04 00:15:00")},
+        ]
+    )
 
 
 class TestWriter:
-
     def test_mkdir_makes_dir(self, writer, test_path):
         writer.mkdir(test_path)
         assert test_path.parent.is_dir()
