@@ -48,7 +48,7 @@ def load_bytes(raw: bytes) -> pd.DataFrame:
         names=COLUMNS.keys(),
         index_col=False,
         dtype=COLUMNS,
-        na_values=["---", "------"]
+        na_values=["---", "------"],
     )
 
 

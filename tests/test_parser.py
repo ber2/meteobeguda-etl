@@ -86,7 +86,6 @@ def test_loaded_bytes_has_all_columns(loaded_df):
     assert loaded_df.shape[1] == 29
 
 
-pickle.dump
 def test_loaded_bytes_column_names(loaded_df):
     assert loaded_df.columns.to_list() == list(COLUMNS.keys())
 
@@ -192,8 +191,11 @@ def test_end_to_end_parsing(raw_input, expected_parsed_response):
     pd.testing.assert_frame_equal(expected_parsed_response, actual_parsed_response)
 
 
-def test_end_to_end_parsing_with_nulls(raw_input_with_nulls, expected_parsed_response_with_nulls):
+def test_end_to_end_parsing_with_nulls(
+    raw_input_with_nulls, expected_parsed_response_with_nulls
+):
     date = dt.date(2022, 8, 2)
     actual_parsed_response = parse_response(date, raw_input_with_nulls)
-    pd.testing.assert_frame_equal(expected_parsed_response_with_nulls, actual_parsed_response)
-
+    pd.testing.assert_frame_equal(
+        expected_parsed_response_with_nulls, actual_parsed_response
+    )
