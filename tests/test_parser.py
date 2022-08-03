@@ -24,8 +24,20 @@ def raw_input():
 
 
 @pytest.fixture
+def raw_input_with_nulls():
+    with open("tests/resources/downld02_with_nulls.txt", "rb") as fp:
+        raw = fp.read()
+    return raw
+
+
+@pytest.fixture
 def loaded_df(raw_input):
     return load_bytes(raw_input)
+
+
+@pytest.fixture
+def loaded_df_with_nulls(raw_input_with_nulls):
+    return load_bytes(raw_input_with_nulls)
 
 
 @pytest.fixture
@@ -59,6 +71,13 @@ def df_with_only_dates():
 @pytest.fixture
 def expected_parsed_response():
     with open("tests/resources/parsed_response.pkl", "rb") as fp:
+        df = pickle.load(fp)
+    return df
+
+
+@pytest.fixture
+def expected_parsed_response_with_nulls():
+    with open("tests/resources/parsed_response_with_nulls.pkl", "rb") as fp:
         df = pickle.load(fp)
     return df
 
@@ -155,7 +174,28 @@ def test_column_reordering():
     assert expected_column_order == actual_column_order
 
 
+def test_loading_bytes_parses_null_values(loaded_df_with_nulls, loaded_df):
+    values = loaded_df_with_nulls[loaded_df_with_nulls.time == "11:20"].iloc[0]
+    expected_null_values = 10
+
+    assert values.count() == expected_null_values
+
+
+def test_loading_bytes_with_nulls_respects_data_types(loaded_df_with_nulls, loaded_df):
+    assert (loaded_df_with_nulls.dtypes == loaded_df.dtypes).all()
+
+
 def test_end_to_end_parsing(raw_input, expected_parsed_response):
     date = dt.date(2022, 3, 11)
     actual_parsed_response = parse_response(date, raw_input)
     pd.testing.assert_frame_equal(expected_parsed_response, actual_parsed_response)
+
+
+def test_end_to_end_parsing_with_nulls(
+    raw_input_with_nulls, expected_parsed_response_with_nulls
+):
+    date = dt.date(2022, 8, 2)
+    actual_parsed_response = parse_response(date, raw_input_with_nulls)
+    pd.testing.assert_frame_equal(
+        expected_parsed_response_with_nulls, actual_parsed_response
+    )
