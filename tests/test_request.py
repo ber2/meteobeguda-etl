@@ -2,7 +2,7 @@ from unittest import mock
 
 import pytest
 
-from meteobeguda.request import (
+from meteobeguda_etl.request import (
     URL_TWO_DAYS,
     URL_EIGHT_DAYS,
     get_last_two_days,

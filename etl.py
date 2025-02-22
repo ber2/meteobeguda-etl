@@ -5,10 +5,10 @@ import sys
 
 import pandas as pd
 
-from meteobeguda.request import get_last_two_days
-from meteobeguda.parser import parse_response
-from meteobeguda.sqlite import SqliteClient
-from meteobeguda.writer import Writer
+from meteobeguda_etl.request import get_last_two_days
+from meteobeguda_etl.parser import parse_response
+from meteobeguda_etl.sqlite import SqliteClient
+from meteobeguda_etl.writer import Writer
 
 
 SQLITE_PATH = Path("data/warehouse/meteobeguda_post_2020.sqlite")

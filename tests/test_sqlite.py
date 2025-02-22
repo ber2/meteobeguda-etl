@@ -6,7 +6,7 @@ import pandas as pd
 
 import pytest
 
-from meteobeguda.sqlite import SqliteClient
+from meteobeguda_etl.sqlite import SqliteClient
 
 
 @pytest.fixture
