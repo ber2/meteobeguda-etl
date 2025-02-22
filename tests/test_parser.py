@@ -6,7 +6,7 @@ import pytest
 import pandas as pd
 import numpy as np
 
-from meteobeguda.parser import (
+from meteobeguda_etl.parser import (
     COLUMNS,
     load_bytes,
     parse_timestamps_and_add_date,

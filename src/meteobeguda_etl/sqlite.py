@@ -1,7 +1,7 @@
 import datetime as dt
 import logging
 from pathlib import Path
-from sqlite3 import connect, Connection
+from sqlite3 import connect
 
 import pandas as pd
 

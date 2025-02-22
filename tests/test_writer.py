@@ -6,7 +6,7 @@ import pandas as pd
 
 import pytest
 
-from meteobeguda.writer import Writer
+from meteobeguda_etl.writer import Writer
 
 
 @pytest.fixture
