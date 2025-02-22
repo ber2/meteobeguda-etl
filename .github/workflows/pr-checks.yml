@@ -8,55 +8,70 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v5
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
       with:
-        python-version: "3.9"
-        cache: "pip"
-        cache-dependency-path: |
-          requirements-dev.lock
-          requirements.lock
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+    - name: Set up Python 3.12
+      run: uv python install 3.12
     - name: Install dependencies
       run: |
-        pip install -r requirements-dev.lock
+        uv sync --all-extras --dev
     - name: Pytest
       run: |
-        pytest -v --cov=meteobeguda
+        uv run pytest -v --cov=src
 
   mypy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v5
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
       with:
-        python-version: "3.9"
-        cache: "pip"
-        cache-dependency-path: |
-          requirements-dev.lock
-          requirements.lock
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+    - name: Set up Python 3.12
+      run: uv python install 3.12
     - name: Install dependencies
       run: |
-        pip install -r requirements-dev.lock
+        uv sync --all-extras --dev
     - name: MyPy
       run: |
-        mypy --ignore-missing-imports meteobeguda
+        uv run mypy --ignore-missing-imports src
+
+  ruff:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+    - name: Set up Python 3.12
+      run: uv python install 3.12
+    - name: Install dependencies
+      run: |
+        uv sync --all-extras --dev
+    - name: ruff
+      run: |
+        ruff format --check .
 
   flake8:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v5
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
       with:
-        python-version: "3.9"
-        cache: "pip"
-        cache-dependency-path: |
-          requirements-dev.lock
-          requirements.lock
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+    - name: Set up Python 3.12
+      run: uv python install 3.12
     - name: Install dependencies
       run: |
-        pip install -r requirements-dev.lock
+        uv sync --all-extras --dev
     - name: flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -68,36 +83,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v5
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
       with:
-        python-version: "3.9"
-        cache: "pip"
-        cache-dependency-path: |
-          requirements-dev.lock
-          requirements.lock
+        enable-cache: true
+        cache-dependency-glob: "uv.lock"
+    - name: Set up Python 3.12
+      run: uv python install 3.12
     - name: Install dependencies
       run: |
-        pip install -r requirements-dev.lock
+        uv sync --all-extras --dev
     - name: Bandit
       run: |
-        bandit .
-
-  black:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.9"
-        cache: "pip"
-        cache-dependency-path: |
-          requirements-dev.lock
-          requirements.lock
-    - name: Install dependencies
-      run: |
-        pip install -r requirements-dev.lock
-    - name: Black
-      run: |
-        black --check .
+        uv run bandit .
