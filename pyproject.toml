@@ -29,4 +29,5 @@ dev = [
     "requests-mock>=1.12.1",
     "ruff>=0.9.7",
     "types-requests>=2.32.0.20241016",
+    "pandas-stubs>=2.2.3.241126",
 ]

@@ -20,8 +20,3 @@ def get_last_two_days() -> Optional[bytes]:
 
 def get_last_eight_days() -> Optional[bytes]:
     return _get_data(URL_EIGHT_DAYS)
-
-
-
-def square(n: int) -> str:
-    return n * 2
