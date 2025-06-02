@@ -59,8 +59,10 @@ def parse_timestamps_and_add_date(data: pd.DataFrame) -> None:
 
 
 def only_one_day(date: dt.date, data: pd.DataFrame) -> pd.DataFrame:
-    threshold_timestamp = pd.Timestamp(date + dt.timedelta(1))
-    return data[data.timestamp <= threshold_timestamp].copy()
+    min_ts = pd.Timestamp(date)
+    max_ts = pd.Timestamp(date + dt.timedelta(1))
+    mask = data.timestamp.between(min_ts, max_ts, inclusive="right")
+    return data[mask].copy()
 
 
 def reorder_columns(data: pd.DataFrame) -> pd.DataFrame:
